@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@plugin "daisyui";
+
+@theme {
+  /* Keyframe for loading bar */
+  --animate-progress: progress 1s linear forwards;
+
+  @keyframes progress {
+    0% {
+      transform: scaleX(0);
+      background-color: var(--color-base-content);
+    }
+    100% {
+      transform: scaleX(1);
+      background-color: var(--color-error);
+    }
+  }
+
+  --animate-fade-in: fade-in 0.5s ease-in-out forwards;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
