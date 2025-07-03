@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center min-h-screen p-2">
+    <div className="flex items-center justify-center p-2 grow">
       <div className="card bg-base-200 shadow-sm w-fill">
         <div className="card-body">
           <div className="flex flex-col items-center">

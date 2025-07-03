@@ -20,7 +20,7 @@ export default async function RoomPage({ params }: { params: Params }) {
 
   return (
     <RoomManager roomId={room_id} initialState={room}>
-      <div className="w-fill sm:w-lg mt-0 sm:mt-4 mx-auto flex flex-col space-y-4 p-2">
+      <div className="w-full sm:w-lg mt-0 sm:mt-4 mx-auto flex flex-col space-y-4 p-2">
         <div className="bg-base-200 border-base-300 border rounded-lg p-4 shadow-sm">
           <AdminControls />
         </div>
