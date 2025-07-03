@@ -66,7 +66,6 @@ export const RoomManager = ({
     room: roomId,
     onMessage(event) {
       const message = RequestSchema.safeParse(JSON.parse(event.data));
-      console.log("Received message:", message.data);
       if (!message.success) {
         console.error("Invalid message format:", event.data);
         return;

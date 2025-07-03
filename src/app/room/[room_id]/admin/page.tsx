@@ -2,6 +2,7 @@ import { getRoom } from "@/api/room";
 import AdminControls from "@/component/admin-control";
 import AdminList from "@/component/admin-list";
 import BuzzerProgress from "@/component/buzzer-progress";
+import { CopyField } from "@/component/copy-field";
 import { RoomManager } from "@/component/room-context";
 import { baseUrl } from "@/utils/url";
 import { notFound } from "next/navigation";
@@ -31,11 +32,21 @@ export default async function RoomPage({ params }: { params: Params }) {
 
         <details className="collapse collapse-arrow bg-base-200 border-base-300 border">
           <summary className="collapse-title font-semibold">
-            Show QR Code
+            Join options
           </summary>
-          <div className="collapse-content text-sm">
+          <div className="collapse-content">
+            <p className="text-center">Visit this site and enter the room ID</p>
+            <CopyField value={room_id} className="mt-2 w-full" />
+            <div className="divider">OR</div>
+            <p className="text-center">Directly using this link</p>
+            <CopyField
+              value={`${baseUrl()}/room/${room_id}`}
+              className="mt-2 w-full"
+            />
+            <div className="divider">OR</div>
+            <p className="text-center">Using this QR code</p>
             <QRCode
-              className="mx-auto"
+              className="mx-auto my-2"
               value={`${baseUrl()}/room/${room_id}`}
             ></QRCode>
           </div>

@@ -15,6 +15,7 @@ const CLASS_MAP: Record<ToastType, string> = {
 export const Notifications = () => {
   const { toasts, handlers } = useToaster();
   const { startPause, endPause } = handlers;
+  console.debug("Notifications rendered", toasts);
 
   return (
     <div
@@ -39,10 +40,10 @@ export const Notifications = () => {
               ? toast.message(toast)
               : toast.message}
             <button
-              className="btn btn-outline btn-sm btn-square"
+              className="btn btn-ghost btn-sm btn-square"
               onClick={() => toastManager.remove(toast.id)}
             >
-              <XMarkIcon className="h-5 w-5" />
+              <XMarkIcon className="size-[1.2em]" />
             </button>
           </div>
         );
