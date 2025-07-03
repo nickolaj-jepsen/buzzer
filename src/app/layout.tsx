@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Notifications } from "@/component/notifications";
 import { ConfirmRoot } from "@/component/confirm";
+import { Schibsted_Grotesk } from "next/font/google";
+import clsx from "clsx";
+
+const schibstedGrotesk = Schibsted_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Buzzer",
@@ -18,7 +22,12 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className={"antialiased min-h-screen flex flex-col"}>
+      <body
+        className={clsx(
+          "antialiased min-h-screen flex flex-col",
+          schibstedGrotesk.className,
+        )}
+      >
         <Notifications />
         <ConfirmRoot />
         <div className="flex-1 flex flex-col">{children}</div>
