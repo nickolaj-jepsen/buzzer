@@ -59,24 +59,48 @@ export const RoomManager = ({
   const [state, setState] = useState<Room>(initialState);
   const pathname = usePathname();
   const router = useRouter();
+  const [, setLoadingToast] = useState<string | null>(null);
+
+  const onMessage = useCallback((event: WebSocketEventMap["message"]) => {
+    const message = RequestSchema.safeParse(JSON.parse(event.data));
+    if (!message.success) {
+      console.error("Invalid message format:", event.data);
+      return;
+    }
+    if (message.data.type === "update") {
+      setState(message.data.state);
+    }
+    if (message.data.type === "error") {
+      toast.error(message.data.message);
+    }
+  }, []);
+
+  const onOpen = useCallback(() => {
+    setLoadingToast((prev) => {
+      if (prev) {
+        toast.dismiss(prev);
+      }
+      return null;
+    });
+  }, []);
+
+  const onClose = useCallback(() => {
+    setLoadingToast(toast.loading("Reconnecting to room... Please wait."));
+  }, []);
+
+  const onError = useCallback((error: WebSocketEventMap["error"]) => {
+    console.error("WebSocket error:", error);
+    toast.error("WebSocket connection error. Please try again later.");
+  }, []);
 
   const socket = usePartySocket({
     id: persistantId ?? undefined,
     host: PARTYKIT_HOST,
     room: roomId,
-    onMessage(event) {
-      const message = RequestSchema.safeParse(JSON.parse(event.data));
-      if (!message.success) {
-        console.error("Invalid message format:", event.data);
-        return;
-      }
-      if (message.data.type === "update") {
-        setState(message.data.state);
-      }
-      if (message.data.type === "error") {
-        toast.error(message.data.message);
-      }
-    },
+    onOpen,
+    onClose,
+    onError,
+    onMessage,
   });
 
   const me = useMemo(() => {
